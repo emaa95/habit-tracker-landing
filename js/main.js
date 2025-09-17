@@ -43,7 +43,7 @@ class HabitTracker {
         document.querySelectorAll(".emoji-btn").forEach(
             (btn) => {
                 btn.addEventListener("click", (e) => {
-                    this.selectedEmoji(e.target.dataset.emoji)
+                    this.selectEmoji(e.target.dataset.emoji)
                 })
             }
         )
@@ -145,7 +145,7 @@ class HabitTracker {
         const newHabit = {
             id: Date.now().toString(),
             name,
-            emoji: this.selectEmoji,
+            emoji: this.selectedEmoji,
             frequency,
             completed: false,
             streak: 0,

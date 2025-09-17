@@ -1,12 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habit Tracker</title>
-
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    
+    <div class="landing">
+        <div class="container">
+            <div class="hero">
+                <h1 class="hero-title">
+                    Construí tus hábitos diarios
+                    <span class="rocket-icon">🚀</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Empezá con un pequeño paso cada día.
+                </p>
+                <button id="create-habit-btn" class="btn btn-primary btn lg">
+                    Crear mi primer hábito
+                </button>
+            </div>
+
+            <div id="progress-stats" class="progress-card">
+                <div class="progress-header">
+                    <div>
+                        <h2 class="progress-title">Tu Progreso Hoy</h2>
+                        <p id="motivational-message" class="motivational-message">💪 ¡Vamos, recién estás empezando!</p>
+                    </div>
+                    <div class="progress-percentage">
+                        <div id="completion-percentage" class="percentage-number">
+                            0%
+                        </div>
+                        <p id="completion-text" class="completion-text">
+                            0 de 0 hábitos
+                        </p>
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon stat-icon-primary">🎯</div>
+                        <p class="stat-label">Meta</p>
+                        <p id="total-habits" class="stat-value">0</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon stat-icon-accent">🏆</div>
+                        <p class="stat-label">Completados</p>
+                        <p id="completed-habits" class="stat-value">0</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon stat-icon-primary">📈</div>
+                        <p class="stat-label">Progreso</p>
+                        <p id="progress-percent" class="stat-value">0%</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div id="add-habit-form" class="add-habit-form hidden">
+                <div class="form-card">
+                    <div class="form-header">
+                        <h3 class="form-title">
+                            Nuevo Hábito
+                        </h3>
+                        <button class="btn-close" id="close-form-btn">x</button>
+                    </div>
+                    <form id="habit-form">
+                        <div class="form-group">
+                            <label for="habit-name" class="form-label">
+                                Nombre del hábito
+                            </label>
+                            <input type="text" id="habit-name" class="form-input" placeholder="Ej: Hacer ejercicio 30 min" required>
+                            <div class="error-message hidden" id="name-error"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Emoji</label>
+                            <div class="emoji-grid">
+                                <button type="button" class="emoji-btn" data-emoji="💧">💧</button>
+                                <button type="button" class="emoji-btn" data-emoji="📚">📚</button>
+                                <button type="button" class="emoji-btn" data-emoji="🧘">🧘</button>
+                                <button type="button" class="emoji-btn" data-emoji="🏃">🏃</button>
+                                <button type="button" class="emoji-btn" data-emoji="🥗">🥗</button>
+                                <button type="button" class="emoji-btn" data-emoji="💤">💤</button>
+                                <button type="button" class="emoji-btn selected" data-emoji="🎯">🎯</button>
+                                <button type="button" class="emoji-btn" data-emoji="✍️">✍️</button>
+                                <button type="button" class="emoji-btn" data-emoji="🎵">🎵</button>
+                                <button type="button" class="emoji-btn" data-emoji="🌱">🌱</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="frequency" class="form-label">Frecuencia</label>
+                            <select id="frequency" class="form-select">
+                                <option value="diaria">Diaria</option>
+                                <option value="semanal">Semanal</option>
+                                <option value="mensual">Mensual</option>
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary flex-1">Agregar Hábito</button>
+                            <button type="button" id="cancel-form-btn" class="btn btn-outline">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="habits-section">
+                <h2 class="section-title">
+                    Mis Hábitos
+                </h2>
+                <div class="habits-grid" id="habits-container">
+
+                </div>
+                <div id="empty-state" class="empty-state">
+                    <p class="empty-message">¡Aún no tenés hábitos! Creá tu primer hábito para empezar.</p>
+                    <button id="add-habit-empty-btn" class="btn btn-outline">Agregar hábito</button>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <p id="inspirational-quote" class="quote">Los pequeños pasos diarios crean grandes cambios 🌟</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="./js/main.js"></script>
 </body>
+
 </html>

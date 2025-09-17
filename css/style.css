@@ -1,0 +1,373 @@
+:root {
+  --background: #ffffff;
+  --foreground: #374151;
+  --card: #f9fafb;
+  --card-foreground: #4b5563;
+  --primary: #0891b2;
+  --primary-foreground: #ffffff;
+  --accent: #f97316;
+  --accent-foreground: #ffffff;
+  --muted: #f9fafb;
+  --muted-foreground: #4b5563;
+  --border: #d1d5db;
+  --destructive: #ef4444;
+  --radius: 0.5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: var(--background);
+    color: var(--foreground);
+    line-height: 1.6;
+}
+
+.landig{
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 1rem;
+    text-wrap: balance;
+}
+
+.rocket-icon {
+    color: var(--accent);
+    margin-left: 0.5rem
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--muted-foreground);
+    margin-bottom: 2rem;
+    text-wrap: pretty;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+}
+
+.btn-primary{
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+}
+
+.btn-primary:hover {
+    background-color: color-mix(in srgb, var(--primary) 90%, black)
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--muted-foreground);
+    border: 1px solid var(--border);
+}
+
+.btn-outline:hover {
+    color: var(--foreground);
+    background-color: var(--muted);
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  font-size: 1.25rem;
+  padding: 0.25rem;
+}
+
+.btn-close:hover {
+  color: var(--foreground);
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.progress-card {
+    background: linear-gradient(to right,
+            rgba(8, 145, 178, 0.15),
+            rgba(249, 115, 22, 0.15));
+    border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.progress-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.progress-title{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin-bottom: 0.5rem;
+}
+
+.motivational-message {
+  font-size: 1.125rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.progress-percentage {
+    text-align: right;
+}
+
+.percentage-number {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+}
+
+.completion-text {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+}
+
+.progress-bar-container {
+    margin-bottom: 1rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 0.75rem;
+    background-color: var(--muted);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:1rem;
+    padding-top: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.5rem;
+    font-size: 1.5rem;
+}
+
+.stat-icon-primary {
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.stat-icon-accent {
+  background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+}
+
+.stat-value {
+    font-weight: 600;
+    color: var(--foreground);
+}
+
+.add-habit-form {
+    margin-bottom: 2rem;
+}
+
+.add-habit-form.hidden {
+    display: none;
+}
+
+.form-card {
+    background-color: var(--card);
+    border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.form-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--foreground);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--foreground);
+    margin-bottom: 0.5rem;
+}
+
+.form-input, .form-select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    background-color: var(--background);
+    color: var(--foreground);
+}
+
+.form-input:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.emoji-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap:0.5rem;
+}
+
+.emoji-btn {
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background-color: var(--background);
+    cursor: pointer;
+    font-size: 1.125rem;
+    transition: all 0.2s ease;
+}
+
+.emoji-btn:hover {
+    background-color: var(--muted);
+}
+
+.emoji-btn.selected {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-foreground);
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    padding-top: 1rem;
+}
+
+.error-message {
+  color: var(--destructive);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.error-message.hidden {
+  display: none;
+}
+
+.habits-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 1.5rem;
+}
+
+.habits-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.empty-state.hidden {
+    display: none;
+}
+
+.empty-message {
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+  margin-bottom: 1rem;
+}
+
+.habit-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.habit-card:hover {
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--foreground) 10%, transparent);
+}
+
+.habit-card.completed {
+  border: 2px solid color-mix(in srgb, var(--accent) 50%, transparent);
+  background-color: color-mix(in srgb, var(--accent) 5%, var(--card));
+}
+
+.habit-card.animating {
+  animation: pulse 0.6s ease-in-out;
+  transform: scale(1.05);
+}

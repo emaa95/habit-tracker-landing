@@ -1,25 +1,79 @@
 class HabitTracker {
-    constructor () {
+    constructor() {
         this.habits = this.loadHabits()
         this.selectedEmoji = "🎯"
         this.inspirationalQuotes = [
-      "Los pequeños pasos diarios crean grandes cambios 🌟",
-      "Cada día es una nueva oportunidad para crecer 🌱",
-      "La constancia es la clave del éxito 🔑",
-      "Tus hábitos definen tu futuro ✨",
-      "El progreso, no la perfección 🎯",
-    ]
-    this.init()
+            "Los pequeños pasos diarios crean grandes cambios 🌟",
+            "Cada día es una nueva oportunidad para crecer 🌱",
+            "La constancia es la clave del éxito 🔑",
+            "Tus hábitos definen tu futuro ✨",
+            "El progreso, no la perfección 🎯",
+        ]
+
+        this.benefits = [
+            "🌟 Más energía y motivación",
+            "🧠 Mayor concentración y claridad mental",
+            "❤️ Mejora la salud física y emocional",
+            "⏱️ Mejor gestión del tiempo",
+            "📚 Aprendizaje constante",
+            "💪 Disciplina y resiliencia"
+        ]
+
+        this.init()
     }
 
     init() {
         this.bindEvents()
         this.render()
         this.updateRandomQuote()
+        this.renderBenefitsCarousel()
+
+        setTimeout(() => {
+            this.startCarouselAnimation()
+        }, 100)
+
     }
 
+    renderBenefitsCarousel() {
+        const track = document.getElementById("benefits-track")
+        if (!track) return
+
+        track.innerHTML = this.benefits.map(benefit =>
+            `<div class="carousel-item">${benefit}</div>`
+        ).join("")
+    }
+
+    // 👉 mueve los ítems sin duplicar, reciclando el primero al final
+    startCarouselAnimation() {
+        const track = document.getElementById("benefits-track")
+        if (!track) return
+
+        const firstItem = track.firstElementChild
+        if (!firstItem) return // 👉 evita error si aún no hay ítems
+
+        const move = () => {
+            const firstItem = track.firstElementChild
+            if (!firstItem) return
+
+            const itemWidth = firstItem.offsetWidth + 32 // ancho + gap
+
+            track.style.transition = "transform 0.6s linear"
+            track.style.transform = `translateX(-${itemWidth}px)`
+
+            track.addEventListener("transitionend", () => {
+                track.style.transition = "none"
+                track.appendChild(firstItem) // lo manda al final
+                track.style.transform = "translateX(0)"
+                setTimeout(move, 2000) // pausa entre movimientos
+            }, { once: true })
+        }
+
+        setTimeout(move, 2000)
+    }
+
+
     bindEvents() {
-        
+
         document.getElementById("create-habit-btn").addEventListener("click", () => {
             this.showForm()
         })
@@ -55,40 +109,40 @@ class HabitTracker {
 
     loadHabits() {
         const saved = localStorage.getItem("habits")
-    if (saved) {
-      return JSON.parse(saved)
-    }
+        if (saved) {
+            return JSON.parse(saved)
+        }
 
-    // Default habits
-    return [
-      {
-        id: "1",
-        name: "Beber 2L de agua",
-        emoji: "💧",
-        frequency: "diaria",
-        completed: false,
-        streak: 2,
-        totalDays: 7,
-      },
-      {
-        id: "2",
-        name: "Leer 20 min",
-        emoji: "📚",
-        frequency: "diaria",
-        completed: false,
-        streak: 5,
-        totalDays: 7,
-      },
-      {
-        id: "3",
-        name: "Meditar 5 min",
-        emoji: "🧘",
-        frequency: "diaria",
-        completed: true,
-        streak: 3,
-        totalDays: 7,
-      },
-    ]
+        // Default habits
+        return [
+            {
+                id: "1",
+                name: "Beber 2L de agua",
+                emoji: "💧",
+                frequency: "diaria",
+                completed: false,
+                streak: 2,
+                totalDays: 7,
+            },
+            {
+                id: "2",
+                name: "Leer 20 min",
+                emoji: "📚",
+                frequency: "diaria",
+                completed: false,
+                streak: 5,
+                totalDays: 7,
+            },
+            {
+                id: "3",
+                name: "Meditar 5 min",
+                emoji: "🧘",
+                frequency: "diaria",
+                completed: true,
+                streak: 3,
+                totalDays: 7,
+            },
+        ]
     }
 
     saveHabits() {
@@ -100,20 +154,20 @@ class HabitTracker {
         document.getElementById("habit-name").focus()
     }
 
-    hideForm(){
+    hideForm() {
         document.getElementById("add-habit-form").classList.add("hidden")
         this.resetForm()
     }
 
     resetForm() {
-    document.getElementById("habit-form").reset()
+        document.getElementById("habit-form").reset()
         this.selectEmoji("🎯")
         this.clearNameError()
     }
 
     selectEmoji(emoji) {
         document.querySelectorAll(".emoji-btn").forEach((btn) => {
-        btn.classList.remove("selected")
+            btn.classList.remove("selected")
         })
         document.querySelector(`[data-emoji="${emoji}"]`).classList.add("selected")
         this.selectedEmoji = emoji
@@ -137,7 +191,7 @@ class HabitTracker {
         const name = document.getElementById("habit-name").value.trim()
         const frequency = document.getElementById("frequency").value
 
-        if (!name){
+        if (!name) {
             this.showNameError("El nombre del hábito no puede estar vacío")
             return
         }
@@ -157,7 +211,7 @@ class HabitTracker {
         this.render()
         this.hideForm()
     }
-    
+
     toggleHabit(id) {
         const habitIndex = this.habits.findIndex((h) => h.id == id)
         if (habitIndex === -1) return
@@ -171,7 +225,7 @@ class HabitTracker {
         this.saveHabits()
         this.render()
 
-        if (!wasCompleted && habit.completed){
+        if (!wasCompleted && habit.completed) {
             this.showCompletionAnimation(id)
         }
     }
@@ -193,8 +247,8 @@ class HabitTracker {
         }
     }
 
-    deleteHabit(id){
-        if(confirm("¿Estas seguro que quieres eliminar este hábito?")){
+    deleteHabit(id) {
+        if (confirm("¿Estas seguro que quieres eliminar este hábito?")) {
             this.habits = this.habits.filter((h) => h.id !== id)
             this.saveHabits()
             this.render()
@@ -218,7 +272,7 @@ class HabitTracker {
     renderProgressStats() {
         const completedHabits = this.habits.filter((h) => h.completed).length
         const totalHabits = this.habits.length
-        const completionPercentage = totalHabits > 0 ? Math.round((completedHabits/totalHabits) * 100) : 0
+        const completionPercentage = totalHabits > 0 ? Math.round((completedHabits / totalHabits) * 100) : 0
 
         document.getElementById("completion-percentage").textContent = `${completionPercentage}%`
         document.getElementById("completion-text").textContent = `${completedHabits} de ${totalHabits} hábitos`
@@ -256,7 +310,9 @@ class HabitTracker {
                             </div>
                         </div>
                         <button class="delete-btn" onclick="habitTracker.deleteHabit('${habit.id}')">
-                            🗑️
+                                <svg class="delete-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
                         </button>
                     </div>
 
@@ -270,16 +326,15 @@ class HabitTracker {
                             </span>
                         </div>
 
-                        ${
-                          habit.streak > 0
-                            ? `
+                        ${habit.streak > 0
+                        ? `
                             <div class="streak-indicator">
                                 <span class="streak-icon">🔥</span>
                                 <span class="streak-number">${habit.streak}</span>
                             </div>
                         `
-                            : ""
-                        }
+                        : ""
+                    }
                     </div>
 
                     <div class="habit-progress">
@@ -297,6 +352,13 @@ class HabitTracker {
                 `
             }
         ).join("")
+
+        const addButton = document.createElement("div")
+        addButton.className = "habit-card add-habit-card"
+        addButton.innerHTML = `
+        <button class="add-habit-btn" onclick="habitTracker.showForm()">+</button>
+    `
+        container.appendChild(addButton)
     }
 
     render() {
@@ -306,5 +368,98 @@ class HabitTracker {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  window.habitTracker = new HabitTracker()
-})
+    window.habitTracker = new HabitTracker();
+
+    const hero = document.querySelector(".hero");
+    if (hero) {
+        hero.classList.add("animate__animated", "animate__fadeInDown");
+    }
+
+    const hiddenElements = document.querySelectorAll('#progress-stats, .habits-section, footer');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("animate__animated", "animate__fadeInUp");
+                entry.target.classList.remove("hidden-on-load");
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.navbar a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function(e){
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if(target){
+            let scrollTop;
+
+            // Si es la sección de inicio, ir al top exacto
+            if(this.getAttribute("href") === "#inicio") {
+                scrollTop = 0;
+            } else {
+                // Centrar el resto de secciones
+                const rect = target.getBoundingClientRect();
+                scrollTop = window.scrollY + rect.top - (window.innerHeight/2) + (rect.height/2);
+            }
+
+            window.scrollTo({ top: scrollTop, behavior: "smooth" });
+        }
+    });
+});
+
+
+    hiddenElements.forEach(el => observer.observe(el));
+
+    // Toggle modo oscuro
+    const toggle = document.getElementById("dark-mode-toggle");
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        toggle.checked = true;
+    } else {
+        document.body.classList.remove("dark-mode");
+        toggle.checked = false;
+    }
+
+    toggle.addEventListener("change", () => {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem(
+            "theme",
+            document.body.classList.contains("dark-mode") ? "dark" : "light"
+        );
+    });
+
+    // Modal contacto (solo si existe en el DOM)
+    const modal = document.getElementById("contactModal");
+    const btn = document.getElementById("contactBtn");
+    const span = document.getElementsByClassName("close")[0];
+
+    if (modal && btn && span) {
+        btn.onclick = () => modal.style.display = "block";
+        span.onclick = () => modal.style.display = "none";
+        window.onclick = (event) => { if(event.target === modal) modal.style.display = "none"; };
+
+        document.getElementById("contactForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            alert("Mensaje enviado correctamente!");
+            modal.style.display = "none";
+            e.target.reset();
+        });
+    }
+
+    // Frase motivacional dinámica en el footer
+    const quoteElement = document.getElementById("inspirational-quote");
+    if (quoteElement) {
+        const quotes = habitTracker.inspirationalQuotes;
+        let index = 0;
+
+        // Mostrar la primera frase
+        quoteElement.textContent = quotes[index];
+
+        // Cambiar cada 6 segundos
+        setInterval(() => {
+            index = (index + 1) % quotes.length;
+            quoteElement.textContent = quotes[index];
+        }, 6000);
+    }
+});

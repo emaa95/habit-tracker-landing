@@ -7,15 +7,80 @@
     <title>Habit Tracker</title>
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link type="image/png" sizes="16x16" rel="icon" href=".../icons8-objetivo-androidl-16.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body>
-    <div class="landing">
+    <div class="landing" id="inicio">
+        <header class="navbar">
+            <div class="navbar-container">
+                <!-- Logo -->
+                <a href="#" class="navbar-logo">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 100" width="480" height="100">
+
+                        <text x="0" y="60" font-family="Inter, sans-serif" font-size="48" font-weight="700">
+                            <tspan fill="#0891b2">Habit</tspan>
+                            <tspan fill="#f97316">Tracker</tspan>
+                        </text>
+
+                        <!-- Calendario minimalista con check -->
+                        <g transform="translate(330,25) scale(0.55)">
+                            <!-- Marco del calendario -->
+                            <rect x="0" y="0" width="60" height="60" rx="8" ry="8" fill="#0891b2" />
+                            <!-- Pestañas superiores -->
+                            <rect x="10" y="-8" width="10" height="15" rx="2" ry="2" fill="#0891b2" />
+                            <rect x="40" y="-8" width="10" height="15" rx="2" ry="2" fill="#0891b2" />
+                            <!-- Check blanco centrado -->
+                            <path d="M15 30 L27 42 L45 20" stroke="white" stroke-width="5" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </g>
+                    </svg>
+
+                </a>
+                <!-- Links -->
+                <nav class="navbar-links" id="navbar-links">
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                    <a href="#progress-stats" class="nav-link">Progreso</a>
+                    <a href="#habits-section" class="nav-link">Hábitos</a>
+                    <a href="#footer" class="nav-link">Contacto</a>
+                </nav>
+
+                <!-- Toggle Dark Mode -->
+                <div class="theme-toggle">
+                    <input type="checkbox" id="dark-mode-toggle" />
+                    <label for="dark-mode-toggle" class="toggle-label">
+                        <span class="icon sun">
+                            <img width="20" height="20"
+                                src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/external-sun-summer-tanah-basah-basic-outline-tanah-basah.png"
+                                alt="external-sun-summer-tanah-basah-basic-outline-tanah-basah" />
+                        </span>
+                        <span class="icon moon">
+                            <img src="./assets/icons/luna.png" width="20" height="20" alt="">
+                        </span>
+                        <div class="toggle-ball"></div>
+                    </label>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button class="navbar-toggle" id="navbar-toggle">☰</button>
+            </div>
+        </header>
         <div class="container">
+
+            <div class="benefits-carousel">
+                <div class="carousel-track" id="benefits-track">
+                    <!-- Los ítems se van a renderizar dinámicamente -->
+                </div>
+            </div>
             <div class="hero">
                 <h1 class="hero-title">
                     Construí tus hábitos diarios
-                    <span class="rocket-icon">🚀</span>
+                    <span class="rocket-icon">
+                        <img width="32" height="32" src="https://img.icons8.com/ios/50/FD7E14/rocket--v1.png"
+                            alt="rocket--v1" />
+                    </span>
                 </h1>
                 <p class="hero-subtitle">
                     Empezá con un pequeño paso cada día.
@@ -24,6 +89,8 @@
                     Crear mi primer hábito
                 </button>
             </div>
+
+
 
             <div id="progress-stats" class="progress-card">
                 <div class="progress-header">
@@ -48,24 +115,32 @@
 
                 <div class="stats-grid">
                     <div class="stat-item">
-                        <div class="stat-icon stat-icon-primary">🎯</div>
+                        <div class="stat-icon stat-icon-primary">
+                            <img src="./assets/icons/icons8-objetivo.svg" alt="">
+                        </div>
                         <p class="stat-label">Meta</p>
                         <p id="total-habits" class="stat-value">0</p>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-icon stat-icon-accent">🏆</div>
+                        <div class="stat-icon stat-icon-accent">
+                            <img width="24" height="24" src="https://img.icons8.com/ios/50/FD7E14/trophy--v1.png"
+                                alt="trophy--v1" />
+                        </div>
                         <p class="stat-label">Completados</p>
                         <p id="completed-habits" class="stat-value">0</p>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-icon stat-icon-primary">📈</div>
+                        <div class="stat-icon stat-icon-primary">
+                            <img width="24" height="24" src="https://img.icons8.com/ios-glyphs/30/0891b2/bar-chart.png"
+                                alt="bar-chart" />
+                        </div>
                         <p class="stat-label">Progreso</p>
                         <p id="progress-percent" class="stat-value">0%</p>
                     </div>
                 </div>
 
             </div>
-            
+
             <div id="add-habit-form" class="add-habit-form hidden">
                 <div class="form-card">
                     <div class="form-header">
@@ -79,23 +154,83 @@
                             <label for="habit-name" class="form-label">
                                 Nombre del hábito
                             </label>
-                            <input type="text" id="habit-name" class="form-input" placeholder="Ej: Hacer ejercicio 30 min" required>
+                            <input type="text" id="habit-name" class="form-input"
+                                placeholder="Ej: Hacer ejercicio 30 min" required>
                             <div class="error-message hidden" id="name-error"></div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Emoji</label>
                             <div class="emoji-grid">
-                                <button type="button" class="emoji-btn" data-emoji="💧">💧</button>
-                                <button type="button" class="emoji-btn" data-emoji="📚">📚</button>
-                                <button type="button" class="emoji-btn" data-emoji="🧘">🧘</button>
+                                <!-- Ejercicio y movimiento -->
                                 <button type="button" class="emoji-btn" data-emoji="🏃">🏃</button>
+                                <button type="button" class="emoji-btn" data-emoji="🏋️">🏋️</button>
+                                <button type="button" class="emoji-btn" data-emoji="🚴">🚴</button>
+                                <button type="button" class="emoji-btn" data-emoji="🤸">🤸</button>
+                                <button type="button" class="emoji-btn" data-emoji="🧘">🧘</button>
+                                <button type="button" class="emoji-btn" data-emoji="🤾">🤾</button>
+                                <button type="button" class="emoji-btn" data-emoji="🏊">🏊</button>
+                                <button type="button" class="emoji-btn" data-emoji="🛹">🛹</button>
+
+                                <!-- Alimentación y salud -->
+                                <button type="button" class="emoji-btn" data-emoji="💧">💧</button>
                                 <button type="button" class="emoji-btn" data-emoji="🥗">🥗</button>
+                                <button type="button" class="emoji-btn" data-emoji="🍎">🍎</button>
+                                <button type="button" class="emoji-btn" data-emoji="🍌">🍌</button>
+                                <button type="button" class="emoji-btn" data-emoji="🥛">🥛</button>
+                                <button type="button" class="emoji-btn" data-emoji="🍓">🍓</button>
+                                <button type="button" class="emoji-btn" data-emoji="🥑">🥑</button>
+                                <button type="button" class="emoji-btn" data-emoji="🥕">🥕</button>
+
+                                <!-- Descanso y bienestar -->
                                 <button type="button" class="emoji-btn" data-emoji="💤">💤</button>
-                                <button type="button" class="emoji-btn selected" data-emoji="🎯">🎯</button>
+                                <button type="button" class="emoji-btn" data-emoji="🛌">🛌</button>
+                                <button type="button" class="emoji-btn" data-emoji="🌙">🌙</button>
+                                <button type="button" class="emoji-btn" data-emoji="🛀">🛀</button>
+                                <button type="button" class="emoji-btn" data-emoji="🕯️">🕯️</button>
+                                <button type="button" class="emoji-btn" data-emoji="☕">☕</button>
+
+                                <!-- Estudio y productividad -->
+                                <button type="button" class="emoji-btn" data-emoji="📚">📚</button>
+                                <button type="button" class="emoji-btn" data-emoji="💻">💻</button>
+                                <button type="button" class="emoji-btn" data-emoji="📖">📖</button>
                                 <button type="button" class="emoji-btn" data-emoji="✍️">✍️</button>
+                                <button type="button" class="emoji-btn" data-emoji="📝">📝</button>
+                                <button type="button" class="emoji-btn" data-emoji="📅">📅</button>
+                                <button type="button" class="emoji-btn" data-emoji="🗂️">🗂️</button>
+                                <button type="button" class="emoji-btn" data-emoji="📊">📊</button>
+
+                                <!-- Creatividad y hobbies -->
                                 <button type="button" class="emoji-btn" data-emoji="🎵">🎵</button>
+                                <button type="button" class="emoji-btn" data-emoji="🖌️">🖌️</button>
+                                <button type="button" class="emoji-btn" data-emoji="🎨">🎨</button>
+                                <button type="button" class="emoji-btn" data-emoji="🎸">🎸</button>
+                                <button type="button" class="emoji-btn" data-emoji="🧩">🧩</button>
+                                <button type="button" class="emoji-btn" data-emoji="🎹">🎹</button>
+                                <button type="button" class="emoji-btn" data-emoji="🎯">🎯</button>
+
+                                <!-- Motivación y metas -->
+                                <button type="button" class="emoji-btn" data-emoji="🏆">🏆</button>
+                                <button type="button" class="emoji-btn" data-emoji="🌟">🌟</button>
+                                <button type="button" class="emoji-btn" data-emoji="🔥">🔥</button>
+                                <button type="button" class="emoji-btn" data-emoji="💪">💪</button>
+                                <button type="button" class="emoji-btn" data-emoji="🥇">🥇</button>
+                                <button type="button" class="emoji-btn" data-emoji="🎖️">🎖️</button>
+
+                                <!-- Naturaleza y aire libre -->
                                 <button type="button" class="emoji-btn" data-emoji="🌱">🌱</button>
+                                <button type="button" class="emoji-btn" data-emoji="🌿">🌿</button>
+                                <button type="button" class="emoji-btn" data-emoji="🌻">🌻</button>
+                                <button type="button" class="emoji-btn" data-emoji="🌞">🌞</button>
+                                <button type="button" class="emoji-btn" data-emoji="🏔️">🏔️</button>
+                                <button type="button" class="emoji-btn" data-emoji="🏖️">🏖️</button>
+
+                                <!-- Animales y diversión -->
+                                <button type="button" class="emoji-btn" data-emoji="🐶">🐶</button>
+                                <button type="button" class="emoji-btn" data-emoji="🐱">🐱</button>
+                                <button type="button" class="emoji-btn" data-emoji="🐦">🐦</button>
+                                <button type="button" class="emoji-btn" data-emoji="🦋">🦋</button>
+                                <button type="button" class="emoji-btn" data-emoji="🎲">🎲</button>
                             </div>
                         </div>
 
@@ -116,7 +251,7 @@
                 </div>
             </div>
 
-            <div class="habits-section">
+            <div class="habits-section" id="habits-section">
                 <h2 class="section-title">
                     Mis Hábitos
                 </h2>
@@ -129,12 +264,41 @@
                 </div>
             </div>
 
-            <footer class="footer">
-                <p id="inspirational-quote" class="quote">Los pequeños pasos diarios crean grandes cambios 🌟</p>
-                <div class="social-links">
-                    <a href="#" class="social-link">Instagram</a>
-                    <a href="#" class="social-link">Twitter</a>
-                    <a href="#" class="social-link">LinkedIn</a>
+            <footer class="footer glass" id="footer">
+                <div class="footer-content">
+                    <h3>Habit Tracker</h3>
+                    <p id="inspirational-quote" class="quote">
+                        Los pequeños pasos diarios crean grandes cambios 🌟
+                    </p>
+                    <p>Tu compañero para mantener hábitos saludables y mejorar tu productividad diaria.</p>
+                    <p>Email: contacto@habittracker.com | Tel: +54 9 11 1234-5678</p>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+
+                    <!-- Botón que abre el modal -->
+                    <button id="contactBtn" class="contact-btn">Contacto</button>
+
+                    <!-- Modal -->
+                    <div id="contactModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+
+                            <h2>Contacto</h2>
+                            <form id="contactForm">
+                                <div class="form-row">
+                                    <input type="text" id="name" placeholder="Nombre" required />
+                                    <input type="email" id="email" placeholder="Correo" required />
+                                    <textarea id="message" placeholder="Mensaje" required></textarea>
+                                </div>
+                                <button type="submit" class="submit-btn">Enviar</button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </footer>
         </div>

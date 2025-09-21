@@ -42,29 +42,26 @@ class HabitTracker {
             `<div class="carousel-item">${benefit}</div>`
         ).join("")
     }
-
-    // 👉 mueve los ítems sin duplicar, reciclando el primero al final
     startCarouselAnimation() {
         const track = document.getElementById("benefits-track")
         if (!track) return
 
         const firstItem = track.firstElementChild
-        if (!firstItem) return // 👉 evita error si aún no hay ítems
-
+        if (!firstItem) return 
         const move = () => {
             const firstItem = track.firstElementChild
             if (!firstItem) return
 
-            const itemWidth = firstItem.offsetWidth + 32 // ancho + gap
+            const itemWidth = firstItem.offsetWidth + 32 
 
             track.style.transition = "transform 0.6s linear"
             track.style.transform = `translateX(-${itemWidth}px)`
 
             track.addEventListener("transitionend", () => {
                 track.style.transition = "none"
-                track.appendChild(firstItem) // lo manda al final
+                track.appendChild(firstItem) 
                 track.style.transform = "translateX(0)"
-                setTimeout(move, 2000) // pausa entre movimientos
+                setTimeout(move, 2000) 
             }, { once: true })
         }
 
@@ -220,7 +217,7 @@ class HabitTracker {
         const wasCompleted = habit.completed
 
         habit.completed = !habit.completed
-        habit.strak = habit.completed ? habit.streak + 1 : Math.max(0, habit.streak - 1)
+        habit.streak = habit.completed ? habit.streak + 1 : Math.max(0, habit.streak - 1)
 
         this.saveHabits()
         this.render()
@@ -360,7 +357,6 @@ class HabitTracker {
     `
         container.appendChild(addButton)
     }
-
     render() {
         this.renderProgressStats()
         this.renderHabits()
@@ -386,25 +382,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.navbar a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function(e){
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute("href"));
-        if(target){
-            let scrollTop;
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+                const offset = parseInt(getComputedStyle(target).scrollMarginTop) || 0;
+                let top = target.getBoundingClientRect().top + window.scrollY - offset;
 
-            // Si es la sección de inicio, ir al top exacto
-            if(this.getAttribute("href") === "#inicio") {
-                scrollTop = 0;
-            } else {
-                // Centrar el resto de secciones
-                const rect = target.getBoundingClientRect();
-                scrollTop = window.scrollY + rect.top - (window.innerHeight/2) + (rect.height/2);
+
+                top = Math.min(top, document.body.scrollHeight - window.innerHeight);
+
+                window.scrollTo({ top, behavior: "smooth" });
             }
-
-            window.scrollTo({ top: scrollTop, behavior: "smooth" });
-        }
+        });
     });
-});
 
 
     hiddenElements.forEach(el => observer.observe(el));
@@ -429,6 +420,16 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     });
 
+    //Navbar
+    const navbarToggle = document.querySelector(".navbar-toggle");
+    const navbarLinks = document.querySelector(".navbar-links");
+
+    if (navbarToggle && navbarLinks) {
+        navbarToggle.addEventListener("click", () => {
+            navbarLinks.classList.toggle("active");
+        });
+    }
+
     // Modal contacto (solo si existe en el DOM)
     const modal = document.getElementById("contactModal");
     const btn = document.getElementById("contactBtn");
@@ -437,7 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (modal && btn && span) {
         btn.onclick = () => modal.style.display = "block";
         span.onclick = () => modal.style.display = "none";
-        window.onclick = (event) => { if(event.target === modal) modal.style.display = "none"; };
+        window.onclick = (event) => { if (event.target === modal) modal.style.display = "none"; };
 
         document.getElementById("contactForm").addEventListener("submit", (e) => {
             e.preventDefault();
@@ -447,16 +448,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Frase motivacional dinámica en el footer
+
     const quoteElement = document.getElementById("inspirational-quote");
     if (quoteElement) {
         const quotes = habitTracker.inspirationalQuotes;
         let index = 0;
 
-        // Mostrar la primera frase
+
         quoteElement.textContent = quotes[index];
 
-        // Cambiar cada 6 segundos
+
         setInterval(() => {
             index = (index + 1) % quotes.length;
             quoteElement.textContent = quotes[index];

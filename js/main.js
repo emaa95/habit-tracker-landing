@@ -35,39 +35,38 @@ class HabitTracker {
     }
 
     renderBenefitsCarousel() {
-        const track = document.getElementById("benefits-track")
-        if (!track) return
+    const track = document.getElementById("benefits-track");
+    if (!track) return;
 
-        track.innerHTML = this.benefits.map(benefit =>
-            `<div class="carousel-item">${benefit}</div>`
-        ).join("")
-    }
-    startCarouselAnimation() {
-        const track = document.getElementById("benefits-track")
-        if (!track) return
+    // Creamos los items y duplicamos para scroll infinito
+    track.innerHTML = [...this.benefits, ...this.benefits]
+        .map(benefit => `<div class="carousel-item">${benefit}</div>`)
+        .join("");
 
-        const firstItem = track.firstElementChild
-        if (!firstItem) return 
-        const move = () => {
-            const firstItem = track.firstElementChild
-            if (!firstItem) return
+    // Reiniciamos posición
+    track.style.transform = "translateX(0)";
+}
 
-            const itemWidth = firstItem.offsetWidth + 32 
+startCarouselAnimation() {
+    const track = document.getElementById("benefits-track");
+    if (!track) return;
 
-            track.style.transition = "transform 0.6s linear"
-            track.style.transform = `translateX(-${itemWidth}px)`
+    let pos = 0;
+    const speed = 0.5; // px por frame
 
-            track.addEventListener("transitionend", () => {
-                track.style.transition = "none"
-                track.appendChild(firstItem) 
-                track.style.transform = "translateX(0)"
-                setTimeout(move, 2000) 
-            }, { once: true })
+    const step = () => {
+        pos -= speed;
+        // Cuando llega a la mitad del track (duplicado), reseteamos
+        const trackWidth = track.scrollWidth / 2;
+        if (-pos >= trackWidth) {
+            pos = 0;
         }
-
-        setTimeout(move, 2000)
+        track.style.transform = `translateX(${pos}px)`;
+        requestAnimationFrame(step);
     }
 
+    requestAnimationFrame(step);
+}
 
     bindEvents() {
 

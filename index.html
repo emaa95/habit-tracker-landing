@@ -188,7 +188,13 @@
                         <h3 class="form-title">
                             Nuevo Hábito
                         </h3>
-                        <button class="btn-close" id="close-form-btn">x</button>
+                        <button class="delete-btn" id="close-form-btn">
+                            <svg class="delete-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
+                                fill="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
                     </div>
                     <form id="habit-form">
                         <div class="form-group">
@@ -285,7 +291,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary flex-1">Agregar Hábito</button>
+                            <button type="submit" class="btn btn-primary ">Agregar Hábito</button>
                             <button type="button" id="cancel-form-btn" class="btn btn-outline">Cancelar</button>
                         </div>
                     </form>
@@ -324,12 +330,18 @@
                     </div>
 
                     <!-- Botón que abre el modal -->
-                    <button id="contactBtn" class="contact-btn">Contacto</button>
+                    <button id="contactBtn" class="btn btn-primary">Contacto</button>
 
                     <!-- Modal -->
                     <div id="contactModal" class="modal">
                         <div class="modal-content">
-                            <span class="close">&times;</span>
+                            <button class="delete-btn close">
+                                <svg class="delete-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
+                                fill="currentColor">
+                                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            </button>
 
                             <h2>Contacto</h2>
                             <form id="contactForm">
@@ -338,7 +350,7 @@
                                     <input type="email" id="email" placeholder="Correo" required />
                                     <textarea id="message" placeholder="Mensaje" required></textarea>
                                 </div>
-                                <button type="submit" class="submit-btn">Enviar</button>
+                                <button type="submit" class="btn btn-primary">Enviar</button>
                             </form>
                         </div>
                     </div>
